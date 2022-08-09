@@ -1,0 +1,40 @@
+{
+  "name": "serverless-nest-ddd",
+  "version": "1.0.0",
+  "description": "Serverless Nest DDD Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "build": "nest build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MedItDev/serverless-nest-ddd.git"
+  },
+  "keywords": [
+    "Serverless",
+    "Nest",
+    "DDD",
+    "AWS",
+    "Lambda"
+  ],
+  "author": "andrzej.konarski@medit.dev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MedItDev/serverless-nest-ddd/issues"
+  },
+  "homepage": "https://github.com/MedItDev/serverless-nest-ddd#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.101",
+    "serverless-offline": "^9.1.7",
+    "serverless-plugin-typescript": "^2.1.2",
+    "serverless-plugin-warmup": "^7.3.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.0.8",
+    "@nestjs/config": "^2.2.0",
+    "@nestjs/core": "^9.0.8",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.6"
+  }
+}
