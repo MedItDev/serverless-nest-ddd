@@ -1,5 +1,5 @@
-import {IDomainEvent} from "./IDomainEvent";
+import { IDomainEvent } from './IDomainEvent';
 
 export interface IDomainPublisher {
-    publish(event: IDomainEvent): Promise<void>;
+  publish(event: IDomainEvent): Promise<void>;
 }

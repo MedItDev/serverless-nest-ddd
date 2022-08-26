@@ -1,11 +1,9 @@
-
 # Service name
 service: serverless-nest-ddd
 
 # Framework version constraint (semver constraint): '3', '^2.33'
 frameworkVersion: '3'
 
-# Load environment variables from .env files (default: false)
 # See https://www.serverless.com/framework/docs/environment-variables
 useDotenv: true
 
@@ -13,18 +11,24 @@ plugins:
   - serverless-plugin-warmup
   - serverless-offline
   - serverless-plugin-typescript
-  - serverless-plugin-optimize
-
+  - serverless-iam-roles-per-function
 
 provider:
   name: aws
   runtime: nodejs16.x
   region: 'eu-west-2'
   stage: ${opt:stage, "local"}
-  memorySize: ${file(env.yml):${self:provider.stage}.memorySize}
+  memorySize: 256
   versionFunctions: false
-  environment: ${file(env.yml):environment}
-  vpc: ${file(env.yml):${self:provider.stage}.vpc}
+
+functions:
+  ExampleHandler:
+    handler: src/infra/handlers/example/index.exampleHandler
+    events:
+      - http:
+          method: get
+          cors: true
+          path: /example
 
 
 custom:
@@ -40,11 +44,11 @@ custom:
       memorySize: 256
       vpc: false
       events:
-        - schedule: ${file(env.yml):environment.schedule}
+#        - schedule: ${ssm:/api/warmup/schedule}
       timeout: 20
       prewarm: true # Run WarmUp immediately after a deployment lambda
       payloadRaw: true # Won't JSON.stringify() the payload, may be necessary for Go/AppSync deployments
-      concurrency: ${file(env.yml):environment.concurrency}
+#      concurrency: ${ssm:/api/warmup/concurrency}
 
 package:
   individually: true
