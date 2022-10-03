@@ -4,9 +4,6 @@ service: serverless-nest-ddd
 # Framework version constraint (semver constraint): '3', '^2.33'
 frameworkVersion: '3'
 
-# See https://www.serverless.com/framework/docs/environment-variables
-useDotenv: true
-
 plugins:
   - serverless-plugin-warmup
   - serverless-offline
@@ -23,6 +20,9 @@ provider:
 
 functions:
   ExampleHandler:
+    warmup:
+      default:
+        enabled: ${file(env.yml):environment.enabled}
     handler: src/infra/handlers/example/index.exampleHandler
     events:
       - http:
@@ -44,11 +44,11 @@ custom:
       memorySize: 256
       vpc: false
       events:
-#        - schedule: ${ssm:/api/warmup/schedule}
+        - schedule: ${file(env.yml):environment.schedule}
       timeout: 20
       prewarm: true # Run WarmUp immediately after a deployment lambda
       payloadRaw: true # Won't JSON.stringify() the payload, may be necessary for Go/AppSync deployments
-#      concurrency: ${ssm:/api/warmup/concurrency}
+      concurrency: ${file(env.yml):environment.concurrency}
 
 package:
   individually: true

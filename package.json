@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Serverless Nest DDD Boilerplate",
   "private": true,
-  "type": "module",
   "engines": {
     "node": ">=16.17.0"
   },
@@ -60,6 +59,8 @@
     "@nestjs/common": "^9.0.8",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.8",
+    "knex": "^2.3.0",
+    "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.6"
   },
