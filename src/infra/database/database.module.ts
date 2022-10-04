@@ -1,21 +1,25 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { CONFIG_OPTIONS } from './constants';
+import { DynamicModule, Global, Module } from '@nestjs/common';
+import { KnexOptions } from './knex.options.interface';
+import { connectionFactory } from './knex.connection.factory.provider';
+import { KNEX_OPTIONS } from './knex.constants';
 import { DatabaseService } from './database.service';
-import { DatabaseConfigInterface } from './database.config.interface';
 
-@Module({})
+@Global()
+@Module({
+  providers: [DatabaseService, connectionFactory],
+  exports: [DatabaseService, connectionFactory, KNEX_OPTIONS],
+})
 export class DatabaseModule {
-  public static forRoot(options?: DatabaseConfigInterface): DynamicModule {
+  public static forRoot(options: KnexOptions): DynamicModule {
     return {
       module: DatabaseModule,
       providers: [
         {
-          provide: CONFIG_OPTIONS,
+          provide: KNEX_OPTIONS,
           useValue: options,
         },
-        DatabaseService,
       ],
-      exports: [DatabaseService],
+      exports: [KNEX_OPTIONS],
     };
   }
 }

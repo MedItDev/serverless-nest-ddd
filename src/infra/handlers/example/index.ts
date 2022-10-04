@@ -15,15 +15,16 @@ const ExampleHandler: THandlerFunc = async (
   _context: Context,
 ): Promise<APIGatewayProxyResult> => {
   //Lazy Loading Modules
-  const { ExampleService } = await import('./example.service');
-  const { ExampleModule } = await import('./example.module');
+  const { TestDbService } = await import('./test-db.service');
+  const { TestDbModule } = await import('./test-db.module');
 
   const appContext: INestApplicationContext = await bootstrap();
   const lazyModuleLoader = appContext.get(LazyModuleLoader);
-  const moduleRef = await lazyModuleLoader.load(() => ExampleModule);
-  const lazyService = moduleRef.get(ExampleService);
 
-  return new Response(lazyService.example()).response;
+  const moduleRef = await lazyModuleLoader.load(() => TestDbModule);
+  const lazyService = moduleRef.get(TestDbService);
+
+  return new Response(lazyService.getHello()).response;
 };
 
 export const exampleHandler: APIGatewayProxyHandler = async (

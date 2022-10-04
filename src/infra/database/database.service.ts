@@ -5,21 +5,25 @@ import {
   OnApplicationShutdown,
 } from '@nestjs/common';
 
-import knex, { Knex } from 'knex';
-
-import { CONFIG_OPTIONS } from './constants';
-import { DatabaseConfigInterface } from './database.config.interface';
+import * as KnexClient from 'knex';
+import { KnexOptions } from './knex.options.interface';
+import { KNEX_OPTIONS } from './knex.constants';
 
 @Injectable()
 export class DatabaseService implements OnApplicationShutdown {
   private readonly logger: Logger;
-  private readonly knexClient: Knex<any, unknown[]>;
+  private readonly knexClient: KnexClient.Knex | undefined;
 
-  constructor(@Inject(CONFIG_OPTIONS) options: DatabaseConfigInterface) {
+  constructor(@Inject(KNEX_OPTIONS) private readonly options: KnexOptions) {
     try {
-      this.logger = new Logger('KnexModule');
+      this.logger = new Logger('KnexService');
       this.logger.log('Initializing database service...');
-      this.knexClient = knex({ ...options, log: this.logger });
+
+      if (!this.knexClient) {
+        this.knexClient = KnexClient.knex({
+          ...this.options,
+        });
+      }
     } catch (err: unknown) {
       throw err;
     }
@@ -31,8 +35,8 @@ export class DatabaseService implements OnApplicationShutdown {
 
   onApplicationShutdown(): void {
     try {
-      this.knexClient.destroy(() => {
-        this.logger.debug('Knex client destroyed');
+      this.knexClient?.destroy(() => {
+        this.logger.log('Knex client destroyed');
       });
     } catch (err: unknown) {
       this.logger.error(err);
