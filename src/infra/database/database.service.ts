@@ -4,10 +4,9 @@ import {
   Logger,
   OnApplicationShutdown,
 } from '@nestjs/common';
-
+import { KnexOptions } from './knex/knex.options.interface';
+import { KNEX_OPTIONS } from './knex/knex.constants';
 import * as KnexClient from 'knex';
-import { KnexOptions } from './knex.options.interface';
-import { KNEX_OPTIONS } from './knex.constants';
 
 @Injectable()
 export class DatabaseService implements OnApplicationShutdown {
@@ -20,9 +19,7 @@ export class DatabaseService implements OnApplicationShutdown {
       this.logger.log('Initializing database service...');
 
       if (!this.knexClient) {
-        this.knexClient = KnexClient.knex({
-          ...this.options,
-        });
+        this.knexClient = KnexClient.knex(this.options);
       }
     } catch (err: unknown) {
       throw err;

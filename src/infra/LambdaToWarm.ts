@@ -3,8 +3,7 @@ import {
   APIGatewayProxyResult,
   Context,
 } from 'aws-lambda';
-
-import { Response } from './response';
+import { Ok } from './Response';
 
 export type TPluginWarmupEvent = Readonly<{ source: string }>;
 
@@ -31,7 +30,7 @@ export const LambdaToWarm = async <T extends THandlerFunc>(
       ),
     );
 
-    return new Response('Lambda is warm!').response;
+    return new Ok('Lambda is warm!').body;
   }
 
   return func(event as APIGatewayProxyEvent, context);

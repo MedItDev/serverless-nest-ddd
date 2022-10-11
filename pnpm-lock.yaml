@@ -91,7 +91,7 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       jsonc-parser: 3.0.0
       rxjs: 6.6.7
       source-map: 0.7.3
@@ -901,8 +901,10 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.11.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1195,7 +1197,7 @@ packages:
     resolution: {integrity: sha512-xq+q3SRMOxGivLhBNaUdC64hDTQwejJ+H0T/NB1XMtTVEwNTrfFF3gAxiyW0Bu/xWEGhjVKgUcMhCrUy2+uCWg==}
     dependencies:
       base64-js: 1.5.1
-      ieee754: 1.1.13
+      ieee754: 1.2.1
       isarray: 1.0.0
     dev: true
 
@@ -4436,7 +4438,7 @@ packages:
       '@serverless/platform-client': 4.3.2_supports-color@8.1.1
       '@serverless/utils': 6.7.0
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       archiver: 5.3.1
       aws-sdk: 2.1203.0
       bluebird: 3.7.2

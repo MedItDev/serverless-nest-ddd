@@ -1,5 +1,9 @@
-export abstract class Mapper<DomainModel, RawEntity, DTO> {
+export abstract class Mapper<
+  DomainModel,
+  RawEntity,
+  DTO = Record<string, unknown>,
+> {
   abstract toDomain(raw: RawEntity): DomainModel;
-  abstract toPersistence(t: DomainModel): RawEntity;
-  abstract toDTO(t: DomainModel): DTO;
+  toPersistence?(t: DomainModel): RawEntity;
+  toDTO?(t: DomainModel): DTO;
 }

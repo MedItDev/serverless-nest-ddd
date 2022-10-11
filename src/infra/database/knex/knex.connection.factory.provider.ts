@@ -1,4 +1,4 @@
-import { DatabaseService } from './database.service';
+import { DatabaseService } from '../database.service';
 import { KNEX_CONNECTION } from './knex.constants';
 
 export const connectionFactory = {
