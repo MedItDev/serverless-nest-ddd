@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { INestApplicationContext } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { handler } from './utils/ErrorHandler';
 
 let appContext: INestApplicationContext;
 
@@ -13,7 +14,7 @@ process.on('unhandledRejection', (reason: string) => {
 
 process.on('uncaughtException', (error: Error) => {
   // I just received an error that was never handled, time to handle it and then decide whether a restart is needed
-  console.error(error);
+  handler.handleError(error);
 });
 
 export async function bootstrap(): Promise<INestApplicationContext> {

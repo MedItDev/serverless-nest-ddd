@@ -1,12 +1,13 @@
+import { Example } from '../domain/Example';
+
 export interface IRawExample {
-  id: string;
+  id: string; //UUID
   name: string;
   surname: string;
   sex: 'F' | 'M' | 'O';
-  title: 'Mr' | 'Mrs' | 'Mx';
 }
 
 export interface IExampleRepo {
-  getExampleById(id: number): Promise<IRawExample>;
-  saveExample(example: IRawExample): Promise<void>;
+  getExampleById(id: string): Promise<IRawExample>;
+  saveExample(example: Example): Promise<void>;
 }

@@ -30,7 +30,7 @@ export const LambdaToWarm = async <T extends THandlerFunc>(
       ),
     );
 
-    return new Ok('Lambda is warm!').body;
+    return new Ok('Lambda is warm!');
   }
 
   return func(event as APIGatewayProxyEvent, context);

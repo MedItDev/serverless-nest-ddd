@@ -1,5 +1,4 @@
 export abstract class BaseHandler<Event, Context, Response> {
-  // or even private
   protected event: Event | undefined;
   protected context: Context | undefined;
 

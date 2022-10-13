@@ -23,10 +23,10 @@ functions:
     warmup:
       default:
         enabled: ${file(env.yml):environment.enabled}
-    handler: src/infra/handlers/example/index.exampleHandler
+    handler: src/infra/handlers/example-handler/index.exampleHandler
     events:
       - http:
-          method: get
+          method: POST
           cors: true
           path: /example
 
